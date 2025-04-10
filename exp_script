@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+
+cycle_time=240
+run_cmd="ros2 launch value_iteration2_exp value_iteration2_exp_sim_astar.launch.py"
+
+for i in {1..10} ; do
+
+  timeout ${cycle_time}s $run_cmd > log/log_astar${i} &
+  launch_pid=$!
+
+  # 少し待ってノードが立ち上がるのを待機
+  ps
+  sleep 30
+  
+  # 2. 指定トピックに指令をパブリッシュ（非同期でも同期でもOK）
+  ros2 topic pub /your_topic std_msgs/msg/String "data: 'start'" --once
+
+  sleep $cycle_time
+  ls log
+
+done
+
+echo finish

@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+cycle_time=10
+run_cmd="ping 8.8.8.8"
+
+timeout ${cycle_time}s $run_cmd > hogehoge &
+launch_pid=$!
+
