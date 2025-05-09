@@ -1,7 +1,12 @@
 #!/usr/bin/bash
 cycle_time=10
-run_cmd="ping 8.8.8.8"
+#run_cmd="ping 8.8.8.8"
+pub_cmd="\"pose: {position: {x: 1.0, y: 1.0}, orientation: {z: 0.5, w: 0.5}}\""
 
-timeout ${cycle_time}s $run_cmd > hogehoge &
-launch_pid=$!
-
+#timeout ${cycle_time}s $run_cmd > hogehoge &
+#launch_pid=$!
+echo $pub_cmd
+echo ros2 topic pub /goal_pose geometry_msgs/msg/PoseStamped $pub_cmd --once
+ros2 topic pub /goal_pose geometry_msgs/msg/PoseStamped $pub_cmd --once
+ros2 topic pub /goal_pose geometry_msgs/msg/PoseStamped "pose: {position: {x: 2.0, y: 1.0}, orientation: {z: 0.5, w: 0.5}}" --once
+ros2 topic pub /goal_pose geometry_msgs/msg/PoseStamped "pose: {position: {x: 1.0, y: 1.0}, orientation: {z: 0.5, w: 0.5}}" --once

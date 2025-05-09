@@ -2,6 +2,7 @@
 
 cycle_time=240
 run_cmd="ros2 launch value_iteration2_exp value_iteration2_exp_sim_astar.launch.py"
+pub_cmd="pose: {position: {x: , y: }, orientation: {z: , w: }}"
 
 for i in {1..10} ; do
 
@@ -13,7 +14,8 @@ for i in {1..10} ; do
   sleep 30
   
   # 2. 指定トピックに指令をパブリッシュ（非同期でも同期でもOK）
-  ros2 topic pub /your_topic std_msgs/msg/String "data: 'start'" --once
+  #ros2 topic pub /goal_pose geometry_msgs/msg/PoseStamped --once $pub_cmd
+  ros2 topic pub /goal_pose geometry_msgs/msg/PoseStamped "pose: {position: {x: 2.0, y: 1.0}, orientation: {z: 0.5, w: 0.5}}" --once
 
   sleep $cycle_time
   ls log
